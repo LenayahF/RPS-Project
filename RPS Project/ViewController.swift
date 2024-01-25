@@ -17,6 +17,10 @@ class ViewController: UIViewController {
         updateUI(state: .start)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        updateUI(state: .start)
+        rock.isHidden = false
+        paper.isHidden = false
+        scissors.isHidden = false
     }
 
     @IBAction func PlayAgain(_ sender: Any) {
@@ -47,12 +51,26 @@ class ViewController: UIViewController {
     func updateUI(state:GameState)
     {
         if state == .start {
-            ComputerSign.text == "🤖"
+            ComputerSign.text = "🤖"
             playAgain.isHidden =  true
             rock.isEnabled =  true
             paper.isEnabled = true
             scissors.isEnabled = true
+            rock.isHidden = false
+            paper.isHidden = false
+            scissors.isHidden = false
+            StatusOfGame.text = "Rock, Paper, Scissors?"
             
+        }
+        
+        else if state == .win{
+            StatusOfGame.text = "You win"
+        }
+        else if state == .lose{
+            StatusOfGame.text = "You lose"
+        }
+        else if state == .draw{
+            StatusOfGame.text = "It's a draw"
         }
     }
     
@@ -61,7 +79,7 @@ class ViewController: UIViewController {
         
         var state = sign.checkWin(opp: computer)
         ComputerSign.text = computer.emoji
-        updateUI(state: .start)
+        updateUI(state: state)
         rock.isEnabled =  false
         paper.isEnabled = false
         scissors.isEnabled = false
